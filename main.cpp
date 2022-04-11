@@ -8,9 +8,17 @@ struct queue
 using namespace std;
 void printcase(int);
 void instructions();
+void enqueue(queue **phead, queue **ptail, int item);
+void phqueue(queue **phead, queue **ptail, int item);
+void conditions(queue **phead, queue **ptail);
+int isEmpty(queue *phead);
+void printqueue(queue *cptr);
+
 int main()
 {
+    queue *phead=NULL, *ptail=NULL;
     int choise;
+    int item;
     instructions();
     cout<<"? ";
     cin>>choise;
@@ -20,15 +28,24 @@ int main()
         {
             case 1:
                 printcase(choise);
+                conditions(&phead,&ptail);
                 break;
             case 2:
                 printcase(choise);
                 break;
             case 3:
                 printcase(choise);
+                cout<<"enter the element"<<endl;
+                cin>>item;
+                phqueue(&phead, &ptail, item);
+                printqueue(phead);
                 break;
             case 4:
                 printcase(choise);
+                cout<<"enter the element"<<endl;
+                cin>>item;
+                enqueue(&phead, &ptail, item);
+                printqueue(phead);
                 break;
             case 5:
                 printcase(choise);
@@ -95,3 +112,83 @@ void printcase(int choise)
 {
     cout<<"case "<<choise<<" is working"<<endl;
 }
+
+void conditions(queue **phead, queue** ptail)
+{
+    if (*phead==NULL)
+    cout<<"queue is empty"<<endl;
+    else
+    {
+    cout<<"Conditions of the queue:"<<endl<<
+          "head is "<<(*phead)->info<<endl<<
+          "tail is "<<(*ptail)->info<<endl;
+    int length=0;
+    queue *cptr;
+    cptr=*phead;
+    while (cptr!=NULL)
+    {
+    length++;
+    cptr=cptr->nextEl;
+    }
+    cout<<"Length of queue is "<<length<<endl;
+    }
+}
+
+void enqueue(queue **phead, queue **ptail, int item)
+{
+queue *newel;
+newel=new queue;
+newel->info=item;
+newel->nextEl=NULL;
+
+if (isEmpty(*phead))
+*phead=newel;
+else
+(*ptail)->nextEl=newel;
+*ptail=newel;
+}
+
+void printqueue(queue *cptr)
+{
+if (cptr==NULL)
+cout<<"queue is empty"<<endl;
+else
+{
+cout<<"your queue is:"<<endl;
+while (cptr!=NULL)
+{
+cout<<cptr->info<<" <-- ";
+cptr=cptr->nextEl;
+}
+cout<<"NULL"<<endl<<endl;
+}
+}
+
+int isEmpty(queue *phead)
+{
+return phead == NULL;
+}
+
+void phqueue(queue **phead, queue **ptail, int item)
+{
+    if (isEmpty(*phead))
+        enqueue(phead, ptail, item);
+    else
+    {
+        queue *newel;
+        newel=new queue;
+        newel->info=item;
+        newel->nextEl=*phead;
+        *phead=newel;
+    }
+
+//if (isEmpty(*phead))
+//*phead=newel;
+//else
+//(*phead)->nextEl=newel;
+//*phead=newel;
+}
+
+
+
+
