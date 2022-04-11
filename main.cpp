@@ -52,12 +52,14 @@ int main()
             break;
         case 5:
             printcase(choise);
+            edit(&phead, &ptail);
             break;
         case 6:
             printcase(choise);
             break;
         case 7:
             printcase(choise);
+            dequeue(&phead, &ptail);
             break;
         case 8:
             printcase(choise);
