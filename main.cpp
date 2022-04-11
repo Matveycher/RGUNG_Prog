@@ -117,8 +117,7 @@ void instructions()
 void dequeue(queue **phead, queue **ptail)
 {
     queue *temp;
-    if (isEmpty(*phead))
-    {
+    if (isEmpty(*phead)) //если очередь пуста
         cout << "Queue is empty" << endl;
         return;
     }
