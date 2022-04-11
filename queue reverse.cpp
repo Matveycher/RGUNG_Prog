@@ -1,14 +1,14 @@
 void reverseq(queue **pphead, queue **pptail) {
-	if(isEmpty(pphead)) {
+	if(isEmpty(*pphead)) {
 		cout << "queue is empty" << endl;
 	} else {
 		queue *pptemphead = NULL, *pptemptail = NULL; // временная очередь
 		int value;
-		while(!isEmpty(pphead)) {
+		while(!isEmpty(*pphead)) {
 			value = dequeue(pphead, pptail); // убираем элемент из головы первоначальной очереди
 			phqueue(&pptemphead, &pptemptail, value); // вставляем в ГОЛОВУ временной очереди полученный элемент
 		}
-		while(!isEmpty(pptemphead)) {
+		while(!isEmpty(*pptemphead)) {
 			value = dequeue(&pptemphead, &pptemptail); // убираем элемент из головы временной очереди
 			enqueue(pphead, pptail, value); // вставляем в ХВОСТ результируещей очереди полученный элемент
 		}
