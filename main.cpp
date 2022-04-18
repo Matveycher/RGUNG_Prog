@@ -76,24 +76,23 @@ int main() {
                 break;
             case 12:
                 printcase(choice);
-                /*
-                //вставь в case: определение длины для каждой очереди, запуск фунции("голова и хвост от большей очереди","голова и хвост от меньшей очереди");
-                int length_one, length_two;
-                length_one = length(phead,1);
-                length_two = length(phead2,1);
-                if (length_one>=length_two)
-                    phead=stack_queues(&phead, &phead2);
-                else
-                    phead=stack_queues(&phead2, &phead);
-                printqueue(phead);
-                */
+				cout << "Queue 1:" << endl;
+                Q1.print();
+				cout << "Queue 2:" << endl;
+                Q2.print();
+				Q1.stackQueue(Q2);
+				cout << "Resultinig Queue 1:" << endl;
+				Q1.print();
                 break;
             case 13:
                 printcase(choice);
-                /*
-                mergeq(&phead, &ptail, &phead2, &ptail2);
-                printqueue(phead);
-                */
+				cout << "Queue 1:" << endl;
+                Q1.print();
+				cout << "Queue 2:" << endl;
+                Q2.print();
+				Q1.mergeQueue(Q2);
+				cout << "Resultinig Queue 1:" << endl;
+				Q1.print();
                 break;
             case 14:
                 printcase(choice);

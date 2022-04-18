@@ -67,10 +67,25 @@ void Queue::edit(int value, int change) {
 		cout << "Elements found: " << n << endl;
 }
 
-void Queue::stackQueue(const Queue&) {
+void Queue::stackQueue(const Queue &queue) {
+	QueueNode *currentPtr1 = headPtr, *currentPtr2 = queue.headPtr;
+	while(currentPtr1 != NULL || currentPtr2 != NULL) {
+		currentPtr1->data = currentPtr1->data + currentPtr2->data;
+		currentPtr1 = currentPtr1->nextPtr;
+		currentPtr2 = currentPtr2->nextPtr;
+	}
+	while(currentPtr2 != NULL) {
+		enqueue(currentPtr2->data);
+		currentPtr2 = currentPtr2->nextPtr;
+	}
 }
 
-void Queue::mergeQueue(const Queue&) {
+void Queue::mergeQueue(const Queue &queue) {
+	QueueNode *currentPtr = queue.headPtr;
+	while(currentPtr != NULL) {
+		enqueue(currentPtr->data);
+		currentPtr = currentPtr->nextPtr;
+	}
 }
 
 void Queue::sortQueue() {
@@ -122,8 +137,11 @@ void Queue::deleteDups() {
 		currentPtr2 = currentPtr1->nextPtr;
 		previousPtr = currentPtr1;
 		while(currentPtr2 != NULL) {
-			if(currentPtr1->data)
+			if(currentPtr1->data == currentPtr2->data) {
+                QueueNode *tempPtr = currentPtr2;
 				previousPtr->nextPtr = currentPtr2->nextPtr;
+                delete tempPtr;
+            }
 			else
 				previousPtr = currentPtr2;
 			currentPtr2 = currentPtr2->nextPtr;
