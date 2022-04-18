@@ -47,7 +47,9 @@ int Queue::dequeue() {
 	return returnValue;
 }
 
-void Queue::edit(int value, int change) {
+
+void Queue::editQueue()
+void Queue::editAll(int value, int change) {
 	if(isEmpty()) {
 		cout << "Queue is empty" << endl;
 		return;
@@ -118,36 +120,30 @@ void Queue::sortQueue() {
 
 void Queue::reverseQueue() {
 	if(!isEmpty()) {
-		Queue temp;
-		int value;
-		while(!isEmpty()) {
-			value = dequeue();
-			temp.enqueueFront(value);
+		QueueNode *currentPtr = headPtr, *prevPtr = NULL, *nextPtr = NULL;
+		while(currentPtr != NULL) {
+			nextPtr = currentPtr->nextPtr;
+			currentPtr->nextPtr = prevPtr;
+			prevPtr = currentPtr;
+			currentPtr = nextPtr;
 		}
-		while(!temp.isEmpty()) {
-			value = temp.dequeue();
-			enqueue(value);
-		}
+		tailPtr = headPtr;
+		headPtr = prevPtr;
 	}
 }
 
 void Queue::deleteDups() {
-	QueueNode *currentPtr1 = headPtr, *currentPtr2, *previousPtr;
-	while(currentPtr1 != NULL) {
-		currentPtr2 = currentPtr1->nextPtr;
-		previousPtr = currentPtr1;
-		while(currentPtr2 != NULL) {
-			if(currentPtr1->data == currentPtr2->data) {
-                QueueNode *tempPtr = currentPtr2;
-				previousPtr->nextPtr = currentPtr2->nextPtr;
-                delete tempPtr;
-            }
+	if(!isEmpty()) {
+		QueueNode *currentPtr = headPtr, *prevPtr = NULL, *nextPtr = NULL;
+		while(currentPtr != NULL) {
+			nextPtr = currentPtr->nextPtr;
+			if(nextPtr != NULL && currentPtr->data == nextPtr->data) {
+				currentPtr->nextPtr = nextPtr->nextPtr;
+				delete nextPtr;
+			}
 			else
-				previousPtr = currentPtr2;
-			currentPtr2 = currentPtr2->nextPtr;
+				currentPtr = nextPtr;
 		}
-		tailPtr = currentPtr1;
-		currentPtr1 = currentPtr1->nextPtr;
 	}
 }
 
